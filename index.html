@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Pedro | Salão de Beleza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d4a866',
+                        secondary: '#1a1a1a',
+                        accent: '#3a3a3a',
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                        'serif': ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .barber-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .appointment-form input, 
+        .appointment-form textarea, 
+        .appointment-form select {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .appointment-form input:focus, 
+        .appointment-form textarea:focus, 
+        .appointment-form select:focus {
+            outline: none;
+            border-color: #d4a866;
+        }
+        
+        .testimonial-card {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .scroll-top {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-secondary font-sans">
+    <!-- Header/Navigation -->
+    <header class="fixed w-full z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center">
+                        <i class="fas fa-scissors text-white text-xl"></i>
+                    </div>
+                    <span class="ml-3 text-2xl font-bold font-serif">Seu Pedro</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-primary transition">Início</a>
+                    <a href="#services" class="hover:text-primary transition">Serviços</a>
+                    <a href="#barbers" class="hover:text-primary transition">Barbeiros</a>
+                    <a href="#gallery" class="hover:text-primary transition">Galeria</a>
+                    <a href="#testimonials" class="hover:text-primary transition">Depoimentos</a>
+                    <a href="#contact" class="hover:text-primary transition">Contato</a>
+                </div>
+                
+                <a href="#appointment" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition hidden md:block">
+                    Agendar Horário
+                </a>
+                
+                <button class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg pt-32 pb-20 text-white">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 font-serif">A Arte da Barbearia Clássica</h1>
+                <p class="text-xl mb-8 opacity-90">Onde tradição encontra modernidade. Cortes de cabelo e barba premium em um ambiente exclusivo para homens.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#appointment" class="bg-primary text-white px-8 py-4 rounded-full text-center hover:bg-opacity-90 transition font-medium">
+                        Agendar Horário
+                    </a>
+                    <a href="#services" class="bg-white text-secondary px-8 py-4 rounded-full text-center hover:bg-gray-100 transition font-medium">
+                        Nossos Serviços
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <div class="bg-primary w-64 h-64 rounded-full absolute -top-6 -left-6 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Barbeiro profissional" 
+                         class="relative z-10 rounded-lg shadow-2xl w-full max-w-md">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Nossos Serviços</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-lg max-w-2xl mx-auto">Oferecemos serviços premium com atenção aos detalhes e produtos de alta qualidade.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition">
+                    <div class="bg-primary bg-opacity-10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-cut text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Corte de Cabelo</h3>
+                    <p class="text-gray-600 mb-4">Cortes modernos e clássicos com técnicas profissionais para um visual impecável.</p>
+                    <p class="text-primary font-bold text-xl">R$ 50,00</p>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition">
+                    <div class="bg-primary bg-opacity-10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-user text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Barba Completa</h3>
+                    <p class="text-gray-600 mb-4">Modelagem, tratamento e cuidados especiais para uma barba bem definida e saudável.</p>
+                    <p class="text-primary font-bold text-xl">R$ 40,00</p>
+                </div>
+                
+                <!-- Service Card 3 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition">
+                    <div class="bg-primary bg-opacity-10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-spa text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Corte + Barba</h3>
+                    <p class="text-gray-600 mb-4">O pacote completo para renovar seu visual com corte de cabelo e tratamento de barba.</p>
+                    <p class="text-primary font-bold text-xl">R$ 80,00</p>
+                </div>
+                
+                <!-- Service Card 4 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition">
+                    <div class="bg-primary bg-opacity-10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-magic text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Coloração</h3>
+                    <p class="text-gray-600 mb-4">Cobertura de fios brancos ou mudança de visual com produtos de alta qualidade.</p>
+                    <p class="text-primary font-bold text-xl">R$ 70,00</p>
+                </div>
+                
+                <!-- Service Card 5 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition">
+                    <div class="bg-primary bg-opacity-10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-fire text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Tratamento Capilar</h3>
+                    <p class="text-gray-600 mb-4">Hidratação e reconstrução para cabelos danificados, ressecados ou com química.</p>
+                    <p class="text-primary font-bold text-xl">R$ 60,00</p>
+                </div>
+                
+                <!-- Service Card 6 -->
+                <div class="service-card bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition">
+                    <div class="bg-primary bg-opacity-10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-crown text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Pacote Premium</h3>
+                    <p class="text-gray-600 mb-4">Corte, barba, tratamento capilar e massagem relaxante para uma experiência completa.</p>
+                    <p class="text-primary font-bold text-xl">R$ 120,00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Barbers Section -->
+    <section id="barbers" class="py-20 bg-secondary text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Nossos Barbeiros</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-lg max-w-2xl mx-auto opacity-80">Profissionais qualificados com anos de experiência no mercado.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Barber 1 -->
+                <div class="barber-card bg-accent rounded-xl overflow-hidden shadow-lg">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" 
+                             alt="Barbeiro Carlos" 
+                             class="w-full h-80 object-cover transition duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold mb-1">Carlos Mendes</h3>
+                        <p class="text-primary mb-3">Especialista em Cortes Clássicos</p>
+                        <p class="text-gray-400 mb-4">Com 12 anos de experiência, Carlos domina técnicas tradicionais com toque moderno.</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Barber 2 -->
+                <div class="barber-card bg-accent rounded-xl overflow-hidden shadow-lg">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" 
+                             alt="Ricardo Oliveira" 
+                             class="w-full h-80 object-cover transition duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold mb-1">Ricardo Oliveira</h3>
+                        <p class="text-primary mb-3">Mestre em Barbas</p>
+                        <p class="text-gray-400 mb-4">Especializado em design e cuidados com barba há mais de 8 anos.</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Barber 3 -->
+                <div class="barber-card bg-accent rounded-xl overflow-hidden shadow-lg">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" 
+                             alt="Marcos Silva" 
+                             class="w-full h-80 object-cover transition duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold mb-1">Marcos Silva</h3>
+                        <p class="text-primary mb-3">Estilista Capilar</p>
+                        <p class="text-gray-400 mb-4">Cortes modernos e tendências atuais com 10 anos de experiência.</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Barber 4 -->
+                <div class="barber-card bg-accent rounded-xl overflow-hidden shadow-lg">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Barbeiro Rafael" 
+                             class="w-full h-80 object-cover transition duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold mb-1">Rafael Costa</h3>
+                        <p class="text-primary mb-3">Especialista em Tratamentos</p>
+                        <p class="text-gray-400 mb-4">Focado em saúde capilar e tratamentos para barba e cabelo.</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Nossa Galeria</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-lg max-w-2xl mx-auto">Alguns dos trabalhos realizados em nossa barbearia.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Corte moderno feminino" 
+                         class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Barbeiro profissional" 
+                         class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" 
+                         alt="Barbeiro profissional" 
+                         class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Barbeiro trabalhando" 
+                         class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
+                         alt="Design de barba" 
+                         class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" 
+                         alt="Ambiente do salão" 
+                         class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Ambiente da barbearia" 
+                         class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Corte moderno masculino" 
+                         class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">O Que Nossos Clientes Dizem</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-lg max-w-2xl mx-auto">Depoimentos de clientes satisfeitos com nossos serviços.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card bg-gray-50 rounded-xl p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl text-primary mr-3">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"A melhor barbearia que já fui! O Carlos é um artista com as tesouras. Saio sempre com um corte impecável e a barba perfeita."</p>
+                    <div class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Cliente João" 
+                             class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold">João Silva</h4>
+                            <p class="text-sm text-gray-500">Cliente há 3 anos</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card bg-gray-50 rounded-xl p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl text-primary mr-3">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Ambiente premium, profissionais qualificados e atendimento excelente. Vale cada centavo! Minha barba nunca esteve tão bem cuidada."</p>
+                    <div class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" 
+                             alt="Cliente Pedro" 
+                             class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold">Pedro Almeida</h4>
+                            <p class="text-sm text-gray-500">Cliente há 1 ano</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card bg-gray-50 rounded-xl p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="text-3xl text-primary mr-3">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="flex">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Sou cliente fiel há mais de 2 anos. O atendimento é personalizado e os barbeiros realmente entendem o que o cliente quer. Recomendo!"</p>
+                    <div class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                             alt="Cliente Rafael" 
+                             class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold">Rafael Costa</h4>
+                            <p class="text-sm text-gray-500">Cliente há 2 anos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="py-20 bg-secondary text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Agende Seu Horário</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                    <p class="text-lg max-w-2xl mx-auto opacity-80">Preencha o formulário abaixo e reserve seu horário com nossos profissionais.</p>
+                </div>
+                
+                <form class="appointment-form grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block mb-2">Nome Completo</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-lg" placeholder="Seu nome">
+                    </div>
+                    <div>
+                        <label class="block mb-2">Telefone</label>
+                        <input type="tel" class="w-full px-4 py-3 rounded-lg" placeholder="(00) 00000-0000">
+                    </div>
+                    <div>
+                        <label class="block mb-2">Email</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg" placeholder="seuemail@exemplo.com">
+                    </div>
+                    <div>
+                        <label class="block mb-2">Serviço</label>
+                        <select class="w-full px-4 py-3 rounded-lg">
+                            <option>Corte de Cabelo</option>
+                            <option>Barba Completa</option>
+                            <option>Corte + Barba</option>
+                            <option>Coloração</option>
+                            <option>Tratamento Capilar</option>
+                            <option>Pacote Premium</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-2">Barbeiro</label>
+                        <select class="w-full px-4 py-3 rounded-lg">
+                            <option>Qualquer barbeiro</option>
+                            <option>Carlos Mendes</option>
+                            <option>Ricardo Oliveira</option>
+                            <option>Marcos Silva</option>
+                            <option>Rafael Costa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-2">Data e Hora</label>
+                        <input type="datetime-local" class="w-full px-4 py-3 rounded-lg">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block mb-2">Mensagem (Opcional)</label>
+                        <textarea class="w-full px-4 py-3 rounded-lg h-32" placeholder="Alguma observação ou preferência especial..."></textarea>
+                    </div>
+                    <div class="md:col-span-2 text-center mt-4">
+                        <button type="submit" class="bg-primary text-white px-8 py-4 rounded-full hover:bg-opacity-90 transition font-medium">
+                            Agendar Horário
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">Entre em Contato</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-lg max-w-2xl mx-auto">Estamos à disposição para atender suas dúvidas e solicitações.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Informações de Contato</h3>
+                    
+                    <div class="flex items-start mb-8">
+                        <div class="bg-primary text-white p-3 rounded-full mr-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-1">Endereço</h4>
+                            <p>Av. Paulista, 1000<br>São Paulo, SP<br>01310-100</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-8">
+                        <div class="bg-primary text-white p-3 rounded-full mr-4">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-1">Telefone</h4>
+                            <p>(11) 9999-9999</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-8">
+                        <div class="bg-primary text-white p-3 rounded-full mr-4">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-1">Email</h4>
+                            <p>contato@corteclassico.com.br</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-primary text-white p-3 rounded-full mr-4">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-1">Horário de Funcionamento</h4>
+                            <p>Segunda a Sexta: 9h às 20h<br>Sábado: 9h às 18h<br>Domingo: Fechado</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Envie uma Mensagem</h3>
+                    <form>
+                        <div class="mb-4">
+                            <input type="text" placeholder="Seu nome" class="w-full px-4 py-3 rounded-lg border border-gray-300">
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" placeholder="Seu email" class="w-full px-4 py-3 rounded-lg border border-gray-300">
+                        </div>
+                        <div class="mb-4">
+                            <input type="text" placeholder="Assunto" class="w-full px-4 py-3 rounded-lg border border-gray-300">
+                        </div>
+                        <div class="mb-4">
+                            <textarea placeholder="Sua mensagem" class="w-full px-4 py-3 rounded-lg border border-gray-300 h-32"></textarea>
+                        </div>
+                        <button type="submit" class="bg-primary text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition font-medium">
+                            Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="bg-primary w-10 h-10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-scissors text-white text-xl"></i>
+                        </div>
+                        <span class="ml-3 text-2xl font-bold font-serif">Seu Pedro</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">Barbearia premium oferecendo serviços de alta qualidade com profissionais experientes em um ambiente exclusivo.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Links Rápidos</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary transition">Início</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-primary transition">Serviços</a></li>
+                        <li><a href="#barbers" class="text-gray-400 hover:text-primary transition">Barbeiros</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-primary transition">Galeria</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-primary transition">Depoimentos</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-primary transition">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Serviços</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition">Corte de Cabelo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition">Barba Completa</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition">Corte + Barba</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition">Coloração</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition">Tratamento Capilar</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition">Pacote Premium</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Inscreva-se para receber nossas promoções e novidades.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Seu email" class="px-4 py-3 rounded-l-lg w-full text-gray-800">
+                        <button class="bg-primary px-4 py-3 rounded-r-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 Corte Clássico Barbearia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" class="fixed bottom-8 right-8 bg-primary text-white p-4 rounded-full shadow-lg scroll-top hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.remove('hidden');
+            } else {
+                scrollTopBtn.classList.add('hidden');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
