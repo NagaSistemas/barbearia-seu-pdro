@@ -1,134 +1,115 @@
-import {
-  FaCut,
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaWhatsapp,
-  FaPaperPlane,
-} from "react-icons/fa";
-
-import React, { useState } from "react";
-
-const Footer: React.FC = () => {
-  const [newsletter, setNewsletter] = useState("");
-
-  function handleNewsletterSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    // Aqui você pode integrar com um backend ou Mailchimp
-    alert("Inscrição realizada! (Simulação)");
-    setNewsletter("");
-  }
-
-  return (
-    <footer className="bg-secondary text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Marca + Descrição + Redes */}
+import React from 'react';
+import { FacebookIcon, InstagramIcon, TwitterIcon } from 'lucide-react';
+export function Footer() {
+  return <footer className="bg-black text-white pt-12 pb-6">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="flex items-center mb-6">
-              <div className="bg-primary w-10 h-10 rounded-full flex items-center justify-center">
-                <FaCut className="text-white text-xl" />
-              </div>
-              <span className="ml-3 text-2xl font-bold font-serif">Seu Pedro</span>
-            </div>
-            <p className="text-gray-400 mb-6">
-              Barbearia premium oferecendo serviços de alta qualidade com profissionais experientes em um ambiente exclusivo.
+            <h3 className="text-xl font-bold mb-4">Seu Pedro</h3>
+            <p className="text-gray-400 mb-4">
+              Barbearia premium oferecendo serviços de alta qualidade. Ambiente
+              exclusivo com profissionais capacitados.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary">
-                <FaFacebookF />
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <FacebookIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary">
-                <FaInstagram />
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <InstagramIcon className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary">
-                <FaTwitter />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary">
-                <FaWhatsapp />
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <TwitterIcon className="w-5 h-5" />
               </a>
             </div>
           </div>
-
-          {/* Links rápidos */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Links Rápidos</h3>
-            <ul className="space-y-3">
+            <h3 className="text-lg font-semibold mb-4">Links Rápidos</h3>
+            <ul className="space-y-2">
               <li>
-                <a href="#home" className="text-gray-400 hover:text-primary transition">Início</a>
+                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Home
+                </a>
               </li>
               <li>
-                <a href="#services" className="text-gray-400 hover:text-primary transition">Serviços</a>
+                <a href="#services" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Serviços
+                </a>
               </li>
               <li>
-                <a href="#barbers" className="text-gray-400 hover:text-primary transition">Barbeiros</a>
+                <a href="#barbers" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Barbeiros
+                </a>
               </li>
               <li>
-                <a href="#gallery" className="text-gray-400 hover:text-primary transition">Galeria</a>
+                <a href="#gallery" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Galeria
+                </a>
               </li>
               <li>
-                <a href="#testimonials" className="text-gray-400 hover:text-primary transition">Depoimentos</a>
+                <a href="#depoimentos" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Depoimentos
+                </a>
               </li>
               <li>
-                <a href="#contact" className="text-gray-400 hover:text-primary transition">Contato</a>
+                <a href="#contact" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Contato
+                </a>
               </li>
             </ul>
           </div>
-
-          {/* Serviços */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Serviços</h3>
-            <ul className="space-y-3">
+            <h3 className="text-lg font-semibold mb-4">Serviços</h3>
+            <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-primary transition">Corte de Cabelo</a>
+                <a href="#services" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Corte de Cabelo
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-primary transition">Barba Completa</a>
+                <a href="#services" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Barba Completa
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-primary transition">Corte + Barba</a>
+                <a href="#services" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Corte + Barba
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-primary transition">Coloração</a>
+                <a href="#services" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Coloração
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-primary transition">Tratamento Capilar</a>
+                <a href="#services" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Tratamentos Capilar
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-primary transition">Pacote Premium</a>
+                <a href="#services" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  Pacote Premium
+                </a>
               </li>
             </ul>
           </div>
-
-          {/* Newsletter */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Newsletter</h3>
+            <h3 className="text-lg font-semibold mb-4">Newsletter</h3>
             <p className="text-gray-400 mb-4">
               Inscreva-se para receber nossas promoções e novidades.
             </p>
-            <form className="flex" onSubmit={handleNewsletterSubmit}>
-              <input
-                type="email"
-                placeholder="Seu email"
-                className="px-4 py-3 rounded-l-lg w-full text-gray-800"
-                value={newsletter}
-                onChange={e => setNewsletter(e.target.value)}
-                required
-              />
-              <button type="submit" className="bg-primary px-4 py-3 rounded-r-lg">
-                <FaPaperPlane />
+            <div className="flex">
+              <input type="email" placeholder="Seu email" className="bg-gray-800 border border-gray-700 text-white rounded-l-md p-2 flex-grow" />
+              <button className="bg-amber-600 hover:bg-amber-700 text-white px-4 rounded-r-md transition-colors">
+                →
               </button>
-            </form>
+            </div>
           </div>
         </div>
-
-        {/* Copyright */}
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
-          <p>&copy; 2023 Corte Clássico Barbearia. Todos os direitos reservados.</p>
+        <div className="border-t border-gray-800 pt-6">
+          <p className="text-center text-gray-500 text-sm">
+            © 2023 Corte Clássico Barbearia. Todos os direitos reservados.
+          </p>
         </div>
       </div>
-    </footer>
-  );
-};
-
-export default Footer;
+    </footer>;
+}

@@ -1,0 +1,26 @@
+/* PLEASE NOTE: THESE TAILWIND IMPORTS SHOULD NEVER BE DELETED */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL */
+
+
+.react-datepicker {
+  font-size: 1.25rem !important;
+  min-width: 420px !important;
+  border-radius: 1.5rem !important;
+  padding: 1.25rem 0.75rem !important;
+}
+.react-datepicker__day,
+.react-datepicker__day-name {
+  width: 3rem !important;
+  height: 3rem !important;
+  line-height: 3rem !important;
+  font-size: 1.15rem !important;
+  margin: 0.2rem !important;
+}
+.react-datepicker__current-month,
+.react-datepicker__header {
+  font-size: 1.3rem !important;
+  padding-bottom: 1rem !important;
+}
