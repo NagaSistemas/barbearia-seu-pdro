@@ -3,8 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CalendarIcon, ClockIcon, CheckIcon } from 'lucide-react';
 import {ptBR} from 'date-fns/locale/pt-BR';
-import { db } from '../../firebase';
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { apiRequest } from '../config/api';
 
 // Mapas de duração dos serviços (em minutos)
 const serviceDurations: Record<string, number> = {
@@ -44,6 +43,35 @@ export function BookingForm() {
     barber: ''
   });
   const [loading, setLoading] = useState(false);
+  const [barbeiros, setBarbeiros] = useState<any[]>([]);
+  const [servicos, setServicos] = useState<any[]>([]);
+
+  // Carregar barbeiros e serviços da API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [barbeirosRes, servicosRes] = await Promise.all([
+          apiRequest('/api/barbeiros'),
+          apiRequest('/api/servicos')
+        ]);
+        
+        const barbeirosData = await barbeirosRes.json();
+        const servicosData = await servicosRes.json();
+        
+        if (barbeirosData.success) {
+          setBarbeiros(barbeirosData.data.filter((b: any) => b.status === 'ativo'));
+        }
+        
+        if (servicosData.success) {
+          setServicos(servicosData.data.filter((s: any) => s.status === 'ativo'));
+        }
+      } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+      }
+    };
+    
+    fetchData();
+  }, []);
 
   // Memoiza a data atual para evitar recriação
   const today = new Date();
@@ -98,7 +126,7 @@ export function BookingForm() {
     }));
   };
 
-  // Envio do formulário para o Firestore
+  // Envio do formulário para a API
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selectedTime || !selectedDate) {
@@ -107,52 +135,41 @@ export function BookingForm() {
     }
     setLoading(true);
 
-    // Prepara data/hora do agendamento
-    const timeParts = selectedTime.split(':');
-    if (timeParts.length !== 2) {
-      alert('Formato de horário inválido. Tente novamente.');
-      setLoading(false);
-      return;
-    }
-    const [hours, minutes] = timeParts.map(Number);
-    if (isNaN(hours) || isNaN(minutes)) {
-      alert('Horário inválido. Tente novamente.');
-      setLoading(false);
-      return;
-    }
-    const dateWithTime = new Date(selectedDate);
-    dateWithTime.setHours(hours, minutes, 0, 0);
-
-    const duration = serviceDurations[formData.service] || 30;
-
-    // Objeto a ser salvo
+    // Objeto a ser enviado
     const bookingData = {
       name: formData.name,
       phone: formData.phone,
-      service: formData.service,
+      services: [formData.service],
       barber: formData.barber,
-      date: Timestamp.fromDate(selectedDate),
-      time: selectedTime,
-      datetime: Timestamp.fromDate(dateWithTime), // útil para consultas posteriores
-      serviceDuration: duration,
-      createdAt: Timestamp.now()
+      date: selectedDate.toISOString().split('T')[0],
+      time: selectedTime
     };
 
     try {
-      await addDoc(collection(db, "agendamentos"), bookingData);
-      alert(`Agendamento recebido para ${dateWithTime.toLocaleDateString('pt-BR')} às ${selectedTime}!`);
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        service: '',
-        barber: ''
+      const response = await apiRequest('/api/agendamentos', {
+        method: 'POST',
+        body: JSON.stringify(bookingData)
       });
-      setSelectedDate(null);
-      setSelectedTime(null);
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        alert(`Agendamento confirmado para ${selectedDate.toLocaleDateString('pt-BR')} às ${selectedTime}!`);
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          service: '',
+          barber: ''
+        });
+        setSelectedDate(null);
+        setSelectedTime(null);
+      } else {
+        alert('Erro ao agendar: ' + result.error);
+      }
     } catch (error) {
       console.error("Erro ao salvar agendamento:", error);
-      alert("Ocorreu um erro ao salvar o agendamento. Tente novamente.");
+      alert("Erro de conexão. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -230,13 +247,11 @@ export function BookingForm() {
                       required
                     >
                       <option value="">Selecione um serviço</option>
-                      <option value="corte">Corte - R$ 60,00</option>
-                      <option value="barba">Barba - R$ 40,00</option>
-
-                      <option value="sobrancelha">Sobrancelha - R$ 20,00</option>
-                      <option value="coloracao">Coloração - R$ 80,00</option>
-                      <option value="luzes">Luzes/Reflexos - R$ 120,00</option>
-                      <option value="relaxamento">Relaxamento - R$ 100,00</option>
+                      {servicos.map(servico => (
+                        <option key={servico.id} value={servico.id}>
+                          {servico.name} - R$ {servico.price.toFixed(2).replace('.', ',')}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -250,8 +265,11 @@ export function BookingForm() {
                       required
                     >
                       <option value="">Selecione um barbeiro</option>
-                      <option value="carlos">Carlos Mendes</option>
-                      <option value="ricardo">Ricardo Oliveira</option>
+                      {barbeiros.map(barbeiro => (
+                        <option key={barbeiro.id} value={barbeiro.id}>
+                          {barbeiro.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>

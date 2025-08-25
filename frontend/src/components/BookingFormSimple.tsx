@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User, Phone, Scissors, Calendar, Clock, CheckCircle, ArrowRight } from 'lucide-react';
+import { apiRequest } from '../config/api';
 
 interface Barbeiro {
   id: string
@@ -66,7 +67,7 @@ export function BookingFormSimple() {
 
   const fetchBarbeiros = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/barbeiros');
+      const response = await apiRequest('/api/barbeiros');
       const data = await response.json();
       
       if (data.success) {
@@ -91,10 +92,10 @@ export function BookingFormSimple() {
   const fetchHorariosDisponiveis = async () => {
     try {
       const dateStr = selectedDate!.toISOString().split('T')[0];
-      const url = `http://localhost:3001/api/horarios-disponiveis?barber=${formData.barber}&date=${dateStr}`;
+      const url = `/api/horarios-disponiveis?barber=${formData.barber}&date=${dateStr}`;
       console.log('🔍 Buscando horários:', url);
       
-      const response = await fetch(url);
+      const response = await apiRequest(url);
       const data = await response.json();
       
       console.log('📅 Resposta da API:', data);
@@ -147,7 +148,7 @@ export function BookingFormSimple() {
         time: selectedTime
       };
 
-      const response = await fetch('http://localhost:3001/api/agendamentos', {
+      const response = await apiRequest('/api/agendamentos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
