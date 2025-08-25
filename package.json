@@ -1,11 +1,11 @@
 {
-  "name": "barbearia-seu-pedro",
+  "name": "barbearia-backend",
   "version": "1.0.0",
-  "description": "Sistema completo para barbearia",
+  "description": "API Backend para Barbearia Seu Pedro",
   "main": "backend/server.js",
   "scripts": {
-    "start": "cd backend && npm install && node server.js",
-    "dev": "cd backend && npm run dev"
+    "start": "cd backend && node server.js",
+    "postinstall": "cd backend && npm install"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -13,5 +13,8 @@
     "dotenv": "^16.3.1",
     "firebase-admin": "^12.0.0",
     "nodemailer": "^6.9.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
