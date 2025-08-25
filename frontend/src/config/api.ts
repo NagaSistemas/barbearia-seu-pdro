@@ -1,5 +1,5 @@
 // Configuração da API
-export const API_BASE_URL = 'https://barbearia-seu-pdro-production.up.railway.app'
+export const API_BASE_URL = 'https://barbearia-seu-pdro.vercel.app'
 
 // Helper para fazer requests
 export const apiRequest = async (endpoint: string, options?: RequestInit) => {
