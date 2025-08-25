@@ -32,6 +32,9 @@ const salvarBloqueios = (bloqueios) => {
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+// Variáveis globais
+let agendamentosMemoria = [];
+
 // Middlewares
 app.use(cors({
   origin: '*',
@@ -332,8 +335,8 @@ const salvarFuncionamento = (funcionamento) => {
 
 // Agenda e Bloqueios
 let bloqueiosHorarios = carregarBloqueios();
-let agendamentosMemoria = []; // Array limpo para testes
 let diasFuncionamento = carregarFuncionamento();
+agendamentosMemoria = []; // Limpar para testes
 console.log(`📅 ${bloqueiosHorarios.length} bloqueios carregados do arquivo`);
 console.log(`📋 ${agendamentosMemoria.length} agendamentos em memória (limpo para testes)`);
 console.log(`🏢 ${diasFuncionamento.length} dias especiais de funcionamento`);
