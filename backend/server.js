@@ -54,6 +54,8 @@ app.get('/api/agendamentos', (req, res) => {
   res.json({ success: true, data: agendamentos });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`📡 Railway PORT: ${process.env.PORT}`);
 });
