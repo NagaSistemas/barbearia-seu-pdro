@@ -1,0 +1,20 @@
+[
+  {
+    "id": "carlos",
+    "name": "Barbeiro 1",
+    "specialty": "Especialista em Cortes Clássicos",
+    "experience": "10 anos",
+    "rating": 5,
+    "status": "ativo",
+    "photo": ""
+  },
+  {
+    "id": "ricardo",
+    "name": "Barbeiro 2",
+    "specialty": "Mestre em Barbas",
+    "experience": "8 anos",
+    "rating": 4.8,
+    "status": "ativo",
+    "photo": ""
+  }
+]
