@@ -4,17 +4,11 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS permissivo
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
+// Middleware
+app.use(cors());
 app.use(express.json());
 
-// Dados em memória
-let agendamentos = [];
+// Dados
 const barbeiros = [
   { id: 'carlos', name: 'Carlos Mendes', specialty: 'Especialista em Cortes Clássicos', experience: '10 anos', status: 'ativo' },
   { id: 'ricardo', name: 'Ricardo Oliveira', specialty: 'Mestre em Barbas', experience: '8 anos', status: 'ativo' }
@@ -29,12 +23,11 @@ const servicos = [
   { id: 'relaxamento', name: 'Relaxamento', price: 100, duration: 40, status: 'ativo' }
 ];
 
+let agendamentos = [];
+
 // Routes
 app.get('/', (req, res) => {
-  res.json({ 
-    message: 'API Barbearia Seu Pedro funcionando!',
-    version: '1.0.0'
-  });
+  res.json({ message: 'API funcionando!' });
 });
 
 app.get('/api/barbeiros', (req, res) => {
@@ -46,40 +39,21 @@ app.get('/api/servicos', (req, res) => {
 });
 
 app.post('/api/agendamentos', (req, res) => {
-  const { name, phone, services, barber, date, time } = req.body;
-  
-  if (!name || !phone || !services || !barber || !date || !time) {
-    return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
-  }
-
   const agendamento = {
     id: Date.now().toString(),
-    name,
-    phone,
-    services,
-    barber,
-    date,
-    time,
+    ...req.body,
     status: 'confirmado',
     createdAt: new Date().toISOString()
   };
-
+  
   agendamentos.push(agendamento);
-  
-  console.log('✅ Novo agendamento:', agendamento);
-  
-  res.status(201).json({
-    success: true,
-    message: 'Agendamento criado com sucesso!',
-    data: agendamento
-  });
+  res.json({ success: true, data: agendamento });
 });
 
 app.get('/api/agendamentos', (req, res) => {
   res.json({ success: true, data: agendamentos });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Servidor rodando na porta ${PORT}`);
-  console.log(`🌍 Ambiente: ${process.env.NODE_ENV || 'development'}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
